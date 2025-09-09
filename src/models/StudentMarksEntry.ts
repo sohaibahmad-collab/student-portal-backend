@@ -5,8 +5,8 @@ export interface IStudentMarksEntry extends Document {
   marks: number;
   subject: string;
   grade: string;
-  date: Date;
-  user: mongoose.Types.ObjectId;
+  date: string;
+  time: string
 }
 
 const studentMarksSchema = new Schema<IStudentMarksEntry>({
@@ -14,8 +14,9 @@ const studentMarksSchema = new Schema<IStudentMarksEntry>({
   marks: { type: Number, required: true },
   subject: { type: String, required: true },
   grade: { type: String, required: true },
-  date: { type: Date, default: Date.now },
-  user: { type: Schema.Types.ObjectId, ref: "User", required: true }
+  date: { type: String, required:true },
+  time:{type:String,required:true}
+
 });
 
 export default mongoose.model<IStudentMarksEntry>("StudentMarksEntry", studentMarksSchema);
