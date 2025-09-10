@@ -3,6 +3,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import ApiError from "@src/utils/apiError";
 import { settings } from "@src/config/settings";
 import { HttpStatusCode } from "@src/utils/httpStatus";
+import { HttpMessage } from "@src/utils/httpMessage";
 
 
 
@@ -10,7 +11,9 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
   const token = req.header("Authorization")?.replace("Bearer ", "");
 
   if (!token) {
-    return res.status(HttpStatusCode.UNAUTHORIZED).json({ msg: "No token, authorization denied" });
+   
+      return new ApiError(HttpStatusCode.UNAUTHORIZED,HttpMessage.NO_TOKEN)
+    
   }
 
   try {
@@ -18,7 +21,7 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
     req.userId = decoded.userId; 
     next();
   } catch (err) {
-    res.status(HttpStatusCode.NOT_FOUND).json({ msg: "Token is not valid" });
+    return new ApiError(HttpStatusCode.NOT_FOUND,HttpMessage.INVALID_TOKEN)
   }
 };
 

@@ -7,4 +7,8 @@ export enum HttpMessage {
   FORBIDDEN = "Forbidden",
   NOT_FOUND = "Resource not found",
   INTERNAL_SERVER_ERROR = "Internal server error",
+  INVALID_EMAIL = "Invalid email",
+  INVALID_PASSWORD = "Invalid password",
+  INVALID_TOKEN = "Token is not valid",
+  NO_TOKEN = "Authorization denied: No token provided",
 }

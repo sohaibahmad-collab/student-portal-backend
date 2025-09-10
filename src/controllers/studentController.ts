@@ -57,7 +57,9 @@ export const updateStudentEntry=async (req:Request, res: Response,next:NextFunct
 export const deleteStudentEntry=async (req:Request, res: Response,next:NextFunction) => {
   try {
     const entry = await StudentMarksEntry.findOneAndDelete({ _id: req.params.id });
-    if (!entry) return res.status(HttpStatusCode.NOT_FOUND).json(HttpMessage.NOT_FOUND);
+    if (!entry)return next(
+            new ApiError(HttpStatusCode.NOT_FOUND,HttpMessage.NOT_FOUND)
+          );
     res.json({ msg:HttpMessage.DELETED });
   } catch(error) {
     next(error)

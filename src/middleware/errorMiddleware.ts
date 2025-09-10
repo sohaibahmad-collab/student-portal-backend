@@ -1,4 +1,6 @@
 import ApiError from "@src/utils/apiError";
+import { HttpMessage } from "@src/utils/httpMessage";
+import { HttpStatusCode } from "@src/utils/httpStatus";
 import { Request, Response, NextFunction } from "express";
 
 const errorMiddleware = (
@@ -15,10 +17,10 @@ const errorMiddleware = (
     });
   }
 
-  res.status(500).json({
+  res.status(HttpStatusCode.INTERNAL_SERVER_ERROR).json({
     success: false,
-    statusCode: 500,
-    message: err.message || "Internal Server Error",
+    statusCode:HttpStatusCode,
+    message: err.message || HttpMessage.INTERNAL_SERVER_ERROR,
   });
 };
 
